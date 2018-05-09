@@ -18,7 +18,12 @@ Zachary Labe - [Research Website](http://sites.uci.edu/zlabe/) - [@ZLabe](https:
 ## Data
 ###### Global Surface Temperature Data Sets (station-based)
 + Berkeley Earth Surface Temperature Project (BEST) : [[DATA]](http://berkeleyearth.org/data/)
+    + Rohde, R., et al. "A new estimate of the average Earth surface land temperature spanning 1753 to 2011. Geoinfor Geostat Overview 1: 1." of 7 (2013): 2.
 + Cowtan and Way surface temperature record (C&W) : [[DATA]](http://www-users.york.ac.uk/~kdc3/papers/coverage2013/series.html)
+    + Cowtan, Kevin, and Robert G. Way. "Coverage bias in the HadCRUT4 temperature series and its impact on recent temperature trends." Quarterly Journal of the Royal Meteorological Society 140.683 (2014): 1935-1944.
 + Hadley Centre/CRU gridded surface temperature data set version 4 (HadCRUT4) : [[DATA]](https://crudata.uea.ac.uk/cru/data/temperature/)
+    + Morice, Colin P., et al. "Quantifying uncertainties in global and regional temperature change using an ensemble of observational estimates: The HadCRUT4 data set." Journal of Geophysical Research: Atmospheres 117.D8 (2012).
 + NASA GISS Surface Temperature Analysis (GISTEMP) : [[DATA]](https://data.giss.nasa.gov/gistemp/)
+    + Hansen, James, et al. "Global surface temperature change." Reviews of Geophysics 48.4 (2010).
 + NOAA Merged Land Ocean Global Surface Temperature (NOAAGlobalTemp) : [[DATA]](https://www.ncdc.noaa.gov/data-access/marineocean-data/noaa-global-surface-temperature-noaaglobaltemp)
+    + Vose, Russell S., et al. "NOAA's merged land–ocean surface temperature analysis." Bulletin of the American Meteorological Society 93.11 (2012): 1677-1685.
