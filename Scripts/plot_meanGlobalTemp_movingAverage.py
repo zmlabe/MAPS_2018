@@ -63,7 +63,7 @@ def calcLinearTrend(data,length):
     """
     print('\n>>> Using calcMovingAverage function!')
     
-    ### Calculate moving trend using polyfit (1 degree)
+    ### Calculate moving average for n months (length)
     aven = np.convolve(data, np.ones((length,))/length, mode='valid') 
     print('Completed: *%s MONTHS* averages!' % length)
     
