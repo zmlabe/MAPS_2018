@@ -130,6 +130,7 @@ plt.plot(months,ave132,color='m',linewidth=2.3,
 
 plt.yticks(np.arange(-0.8,0.81,0.8),np.arange(-0.8,0.81,0.8),rotation=0,fontsize=9)
 plt.ylim([-0.8,0.8])
+plt.xlim([0,2016])
 
 l = plt.legend(shadow=False,fontsize=7.5,loc='upper center',
            bbox_to_anchor=(0.5, 1.03),fancybox=True,ncol=5,

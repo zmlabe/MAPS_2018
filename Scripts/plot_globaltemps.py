@@ -91,10 +91,10 @@ if filesave3 == True:
 ###############################################################################    
 ### Plot figure
 matplotlib.rc('savefig', facecolor='black')
-matplotlib.rc('axes', edgecolor='white')
-matplotlib.rc('xtick', color='white')
-matplotlib.rc('ytick', color='white')
-matplotlib.rc('axes', labelcolor='white')
+matplotlib.rc('axes', edgecolor='darkgrey')
+matplotlib.rc('xtick', color='darkgrey')
+matplotlib.rc('ytick', color='darkgrey')
+matplotlib.rc('axes', labelcolor='darkgrey')
 matplotlib.rc('axes', facecolor='black')
 plt.rc('text',usetex=True)
 plt.rc('font',**{'family':'sans-serif','sans-serif':['Avant Garde']})
@@ -126,7 +126,7 @@ ax.spines['bottom'].set_linewidth(2)
 ax.spines['left'].set_linewidth(2)
 ax.tick_params('both',length=5.5,width=2,which='major',direction='out')
 
-plt.axhline(y=0,color='darkgrey',linestyle='--',linewidth=2.2)
+plt.axhline(y=0,color='darkgrey',linestyle=':',dashes=(1,0.3),linewidth=2)
 
 color=iter(cmocean.cm.thermal(np.linspace(0.15,1,len(data))))
 for i in range(data.shape[0]):
