@@ -62,6 +62,9 @@ for i in range(data.shape[0]):
 ### Calculate multi-dataset mean for annual global temperatures    
 meant = np.nanmean(annual,axis=0)
 
+### Calculate multi-dataset mean for monthly global temperatures    
+meanmonth = np.nanmean(data,axis=0)
+
 filesave1 = False
 if filesave1 == True:  
     np.savetxt(directorydata + 'annual_globaltemps.txt',annual.transpose(),
@@ -73,6 +76,13 @@ if filesave2 == True:
     np.savetxt(directorydata + 'annual_mean_globaltemps.txt',meant,
                delimiter=',',fmt='%3.2f',
                footer='\n File contains annual global surface temperatures' \
+               '\n for *average* of hadcrut4, NASA, NOAA, BEST, and C&W',
+               newline='\n\n')
+filesave3 = False
+if filesave3 == True:  
+    np.savetxt(directorydata + 'monthly_mean_globaltemps.txt',meanmonth,
+               delimiter=',',fmt='%3.2f',
+               footer='\n File contains monthly global surface temperatures' \
                '\n for *average* of hadcrut4, NASA, NOAA, BEST, and C&W',
                newline='\n\n')
 

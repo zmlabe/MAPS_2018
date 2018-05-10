@@ -1,11 +1,11 @@
 """
 Script plots the multi-observational data set mean to demonstrate changing
-linear trends
+moving averages (# of months)
 
 Notes
 -----
     Author : Zachary Labe
-    Date   : 9 May 2018
+    Date   : 10 May 2018
 """
 
 ### Import modules
@@ -27,65 +27,57 @@ currentdy = str(now.day)
 currentyr = str(now.year)
 currenttime = currentmn + '_' + currentdy + '_' + currentyr
 titletime = currentmn + '/' + currentdy + '/' + currentyr
-print('\n' '----Plotting global temperature trends - %s----\n' % titletime)
+print('\n' '----Plotting global temperature averages - %s----\n' % titletime)
 
 ### Alott time series
 year1 = 1850
 year2 = 2017
 years = np.arange(year1,year2+1,1)
+months = np.arange(years.shape[0]*12)
 
 ### Read in mean observational global surface temperature data
-temp = np.genfromtxt(directorydata + 'annual_mean_globaltemps.txt',
+temp = np.genfromtxt(directorydata + 'monthly_mean_globaltemps.txt',
                      unpack=True)
 print('Completed: Read data!')
 
-### Length of moving linear trend
-length = 167
-
 ### Calculate moving linear trends
-def calcLinearTrend(data,years,length):
+def calcLinearTrend(data,length):
     """
-    Calculates moving linear trend for n length of years
+    Calculates moving average for n number of months
     
     Parameters
     ----------
     data : 1d array
         [time series data]
-    years : 1d array
-        [years]
     length : integer
-        [n years]
+        [n months]
         
     Returns
     -------
-    yearn : 2d array
-        [years, years]
-    trend : 2d array
-        [A coefficient, B coefficient]
+    ave : 1d array
+        time series of smoothed data from moving average
     
     Usage
     -----
-    yearn,trend = calcLinearTrend(data,years,length)
+    ave = calcLinearTrend(data,years,length)
     """
-    print('\n>>> Using calcLinearTrend function!')
+    print('\n>>> Using calcMovingAverage function!')
     
     ### Calculate moving trend using polyfit (1 degree)
-    yearn = np.empty((data.shape[0]-length,length))
-    trendn = np.empty((data.shape[0]-length,length))
-    for i in range(data.shape[0]-length):
-        yearn[i,:] = np.arange(years[i],years[i]+length,1)
-        trendn[i,:] = data[i:i+length]
+    aven = np.convolve(data, np.ones((length,))/length, mode='valid') 
+    print('Completed: *%s MONTHS* averages!' % length)
     
-    trend = np.empty((data.shape[0]-length,2))  
-    for i in range(data.shape[0]-length):
-        trend[i,:] = np.polyfit(yearn[i],trendn[i],1)
-    print('Completed: *%s YEAR* trends!' % length)
+    ### Append nans for consistent time
+    empty = np.array([np.nan]*(length-1))
+    ave = np.append(empty,aven,axis=0)
     
-    print('*Completed: Finished calcLinearTrend function!\n')    
-    return yearn,trend
+    print('*Completed: Finished calcMovingAverage function!\n')    
+    return ave
 
 ### Calculate functions
-yearn,trend = calcLinearTrend(temp,years,length)
+ave12 = calcLinearTrend(temp,12)
+ave60 = calcLinearTrend(temp,60)
+ave132 = calcLinearTrend(temp,132)
 
 ###############################################################################
 ###############################################################################
@@ -129,22 +121,22 @@ ax.tick_params('both',length=5.5,width=2,which='major',direction='out')
 frame = plt.gca()
 frame.axes.get_xaxis().set_visible(False)
 
-plt.plot(years,temp,color='deepskyblue',alpha=1,linewidth=2)
-for i in range(temp.shape[0]-length):
-    plt.plot(yearn[i],trend[i,0]*yearn[i]+trend[i,1],
-             color='orangered',linewidth=1)
-    
-plt.xticks(np.arange(1850,2025,20),np.arange(1850,2025,20),rotation=0,fontsize=9)
-plt.yticks(np.arange(-0.75,0.76,0.75),np.arange(-0.75,0.76,0.75),rotation=0,fontsize=9)
-plt.xlim([1850,2018])
-plt.ylim([-0.75,0.75])
+plt.plot(months,ave12,color='deepskyblue',linewidth=2,
+         label=r'12-month',alpha=0.4,zorder=1)
+plt.plot(months,ave60,color='lawngreen',linewidth=2,
+         label=r'60-month',alpha=0.4,zorder=2)
+plt.plot(months,ave132,color='m',linewidth=2.3,
+         label=r'132-month',alpha=1,zorder=3)
 
-plt.text(1914,0.365,r'\textbf{\underline{%s}}' % length,color='orangered',fontsize=30,
-         ha='right',va='center')
-plt.text(1921,0.4,r'\textbf{Year}',color='orangered',fontsize=30,
-         ha='left',va='center')
+plt.yticks(np.arange(-0.8,0.81,0.8),np.arange(-0.8,0.81,0.8),rotation=0,fontsize=9)
+plt.ylim([-0.8,0.8])
 
-plt.savefig(directoryfigure + 'movingTrend_%s_year.png' % length,dpi=300)
+l = plt.legend(shadow=False,fontsize=7.5,loc='upper center',
+           bbox_to_anchor=(0.5, 1.03),fancybox=True,ncol=5,
+            frameon=False)
+for text in l.get_texts():
+    text.set_color('darkgrey')
+
+plt.savefig(directoryfigure + 'movingAverageTemps_132.png',dpi=300)
 
 print('Completed: Script done!')
-        
